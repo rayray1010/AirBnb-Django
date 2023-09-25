@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.exceptions import APIException
 from .models import CustomUser
 from .serializer import CustomLoginSerializer, UserRegisterSerializer, UserSerializer, SocialLoginSerializer, RegisterSerializer
+from listings.serializer import CreateListingSerializer
 from dj_rest_auth.registration.views import RegisterView
 from dj_rest_auth.views import LoginView
 from drf_spectacular.utils import extend_schema
@@ -75,3 +76,12 @@ class CustomLoginView(LoginView):
     )
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
+
+
+class UserFavoritedListingView(generics.ListAPIView):
+    serializer_class = CreateListingSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return user.favorites.all()

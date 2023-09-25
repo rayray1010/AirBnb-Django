@@ -23,5 +23,5 @@ EXPOSE 8000
 
 # 執行 Django 項目（這裡使用 gunicorn 作為伺服器，你可以根據需要選擇其他伺服器）
 # CMD ["python", "manage.py", "migrate"]
-CMD ["gunicorn", "backend.wsgi", "--bind", ":8000"]
+CMD ["gunicorn", "backend.wsgi", "--bind", ":8000", "--access-logfile", "-", "--error-logfile", "-"]
 # CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

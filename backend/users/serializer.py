@@ -7,7 +7,7 @@ from listings.serializer import ListingSerializer
 from reservations.serializer import ReservationSerializer
 # from dj_rest_auth.registration.serializers import LoginSerializer
 from .models import CustomUser
-
+from listings.models import Listing
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
@@ -40,6 +40,8 @@ class UserRegisterSerializer(RegisterSerializer):
     email = serializers.EmailField(required=True)
     name = serializers.CharField(required=True)
     password = serializers.CharField(write_only=True)
+    access_token = serializers.CharField(
+        required=False, allow_blank=True, read_only=True)
 
 
 class SocialLoginSerializer(JWTSerializer):

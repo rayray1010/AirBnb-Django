@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from allauth.socialaccount.providers.google import views as google_views
 from .views import (GoogleLoginView,  UserRedirectView,
-                    UserRetriveMixin, UserRetriveMxin2, RegisterView, CustomLoginView)
+                    UserRetriveMixin, UserRetriveMxin2, RegisterView, CustomLoginView, UserFavoritedListingView)
 from dj_rest_auth.views import LoginView
 
 urlpatterns = [
@@ -13,8 +13,9 @@ urlpatterns = [
          GoogleLoginView.as_view(), name="google_login"),
     path('~redirect/', view=UserRedirectView.as_view(), name='redirect'),
     path('detail/', view=UserRetriveMixin.as_view()),
-    path('<int:pk>', UserRetriveMxin2.as_view()),
     path('login/', CustomLoginView.as_view()),
     path('register/', RegisterView.as_view(), name='rest_register'),
+    path('favorites/', UserFavoritedListingView.as_view()),
+    path('<int:pk>', UserRetriveMxin2.as_view()),
 
 ]
