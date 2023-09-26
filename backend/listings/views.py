@@ -41,7 +41,7 @@ class ListingListCreaetView(generics.ListCreateAPIView):
 
         # 使用Q对象构建筛选条件
         reservations_in_range = Q(
-            start_date__lte=end_date, end_date__gte=start_date)
+            start_date__lte=end_date, end_date__gt=start_date)
 
         # 获取在指定日期范围内已被预订的Listing的ID
         reserved_listing_ids = Reservation.objects.filter(

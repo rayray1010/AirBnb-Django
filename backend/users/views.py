@@ -24,7 +24,7 @@ class ServiceUnavailable(APIException):
 
 class GoogleLoginView(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
-    callback_url = "http://127.0.0.1:8000/"
+    callback_url = "https://pethelp-api.com/"
     client_class = OAuth2Client
 
 
