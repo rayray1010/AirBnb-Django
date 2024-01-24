@@ -17,7 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import path, include
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 
 
 def hello_world(request):
@@ -25,17 +29,12 @@ def hello_world(request):
 
 
 urlpatterns = [
-    # return message hello world
-
-    path('admin/', admin.site.urls),
-    # path('auth/', include('dj_rest_auth.urls')),
-    # path('auth/registration/', include('dj_rest_auth.registration.urls')),
-    path('users/', include('users.urls')),
-    path('listings/', include('listings.urls')),
-    path('reservations/', include('reservations.urls')),
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/docs/', SpectacularSwaggerView.as_view(),
-         name='swagger-ui'),
-    path('api/schema/redoc/', SpectacularRedocView.as_view(), name='redoc'),
-    path('', hello_world, name='hello_world'),
+    path("admin/", admin.site.urls),
+    path("users/", include("users.urls")),
+    path("listings/", include("listings.urls")),
+    path("reservations/", include("reservations.urls")),
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("api/docs/", SpectacularSwaggerView.as_view(), name="swagger-ui"),
+    path("api/schema/redoc/", SpectacularRedocView.as_view(), name="redoc"),
+    path("", hello_world, name="hello_world"),
 ]

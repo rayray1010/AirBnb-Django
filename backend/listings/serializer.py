@@ -13,19 +13,19 @@ class ListingSerializer(serializers.ModelSerializer):
 
 
 class CreateListingSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True, source='pk')
+    id = serializers.IntegerField(read_only=True, source="pk")
     userId = serializers.PrimaryKeyRelatedField(
-        source='owner', queryset=CustomUser.objects.all(), required=False)
-    guestCount = serializers.IntegerField(source='guest_count')
-    locationValue = serializers.CharField(
-        max_length=100, source='location_value')
-    bathroomCount = serializers.IntegerField(source='bathroom_count')
-    roomCount = serializers.IntegerField(source='room_count')
+        source="owner", queryset=CustomUser.objects.all(), required=False
+    )
+    guestCount = serializers.IntegerField(source="guest_count")
+    locationValue = serializers.CharField(max_length=100, source="location_value")
+    bathroomCount = serializers.IntegerField(source="bathroom_count")
+    roomCount = serializers.IntegerField(source="room_count")
     title = serializers.CharField(max_length=50)
     description = serializers.CharField(max_length=1000)
     price = serializers.IntegerField()
-    imageSrc = serializers.CharField(source='image_src', required=False)
-    createdAt = serializers.DateTimeField(read_only=True, source='created_at')
+    imageSrc = serializers.CharField(source="image_src", required=False)
+    createdAt = serializers.DateTimeField(read_only=True, source="created_at")
 
     class Meta:
         model = Listing
@@ -46,19 +46,20 @@ class CreateListingSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         # 通過 validated_data 中的 userId 和 imageSrc 來創建模型實例
-        image_src = validated_data.pop('imageSrc', None)
-        owner = validated_data.pop('userId', None)
+        image_src = validated_data.pop("imageSrc", None)
+        owner = validated_data.pop("userId", None)
         listing = Listing.objects.create(
-            owner=owner, image_src=image_src, **validated_data)
+            owner=owner, image_src=image_src, **validated_data
+        )
         return listing
 
     # patch method
     def update(self, instance, validated_data):
         # 通過 validated_data 中的 userId 和 imageSrc 來創建模型實例
-        if 'imageSrc' in validated_data:
-            instance.image_src = validated_data.pop('imageSrc', None)
-        if 'userId' in validated_data:
-            instance.owner = validated_data.pop('userId', None)
+        if "imageSrc" in validated_data:
+            instance.image_src = validated_data.pop("imageSrc", None)
+        if "userId" in validated_data:
+            instance.owner = validated_data.pop("userId", None)
         instance.save()
         return instance
 
@@ -129,21 +130,20 @@ class CreateListingSerializer(serializers.ModelSerializer):
 
 
 class RetriveListingSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True, source='pk')
+    id = serializers.IntegerField(read_only=True, source="pk")
     userId = serializers.PrimaryKeyRelatedField(
-        source='owner', queryset=CustomUser.objects.all(), required=False)
-    guestCount = serializers.IntegerField(source='guest_count')
-    locationValue = serializers.CharField(
-        max_length=100, source='location_value')
-    bathroomCount = serializers.IntegerField(source='bathroom_count')
-    roomCount = serializers.IntegerField(source='room_count')
+        source="owner", queryset=CustomUser.objects.all(), required=False
+    )
+    guestCount = serializers.IntegerField(source="guest_count")
+    locationValue = serializers.CharField(max_length=100, source="location_value")
+    bathroomCount = serializers.IntegerField(source="bathroom_count")
+    roomCount = serializers.IntegerField(source="room_count")
     title = serializers.CharField(max_length=50)
     description = serializers.CharField(max_length=1000)
     price = serializers.IntegerField()
-    imageSrc = serializers.CharField(source='image_src', required=False)
-    createdAt = serializers.DateTimeField(read_only=True, source='created_at')
-    ownerName = serializers.CharField(
-        source='owner.name', read_only=True)
+    imageSrc = serializers.CharField(source="image_src", required=False)
+    createdAt = serializers.DateTimeField(read_only=True, source="created_at")
+    ownerName = serializers.CharField(source="owner.name", read_only=True)
 
     class Meta:
         model = Listing
@@ -163,20 +163,11 @@ class RetriveListingSerializer(serializers.ModelSerializer):
             "createdAt",
         ]
 
-    # def create(self, validated_data):
-    #     # 通過 validated_data 中的 userId 和 imageSrc 來創建模型實例
-    #     image_src = validated_data.pop('imageSrc', None)
-    #     owner = validated_data.pop('userId', None)
-    #     listing = Listing.objects.create(
-    #         owner=owner, image_src=image_src, **validated_data)
-    #     return listing
-
     # patch method
     def update(self, instance, validated_data):
-        # 通過 validated_data 中的 userId 和 imageSrc 來創建模型實例
-        if 'imageSrc' in validated_data:
-            instance.image_src = validated_data.pop('imageSrc', None)
-        if 'userId' in validated_data:
-            instance.owner = validated_data.pop('userId', None)
+        if "imageSrc" in validated_data:
+            instance.image_src = validated_data.pop("imageSrc", None)
+        if "userId" in validated_data:
+            instance.owner = validated_data.pop("userId", None)
         instance.save()
         return instance
